@@ -1,0 +1,18 @@
+1.3 permasalahan muncul, tujuan datang dari latar belakang
+1.4 manfaat untuk siapa saja, manfaatnya apa
+desain penggambaran sistem sebelum dibuat
+
+data primer: interview/observasi
+data sekunder: website jadi
+
+kebutuhan hardware: browser w/ html-5 
+
+use case
+sequence diagram
+class diagram berdasar sequence
+model entity
+view interface
+
+data flow diagram
+
+quesioner user beda dengan admin

@@ -21,15 +21,13 @@ class RoleMiddleware
         $method = $request->route()->getActionMethod();
         $uri = explode('/',$request->route()->uri());
         $menu = $uri[0];
-        if ($user->regions->contains($region) && $user->roles->intersect($region->roles)->isNotEmpty()) {
-            $perm = Permission::
+        $perm = Permission::
                     where('role',$user->roles->id)
                   ->where('menu',$menu)
-                  ->where('method',$method);
-            if (!empty($perm)) {
-                return $next($request);
-            }
-            abort(403, 'Unauthorized action.');
+                  ->where('method',$method)->get();
+                  
+        if ($user->regions->contains($region) && $user->roles->intersect($region->roles)->isNotEmpty() && !empty($perm)) {
+            return $next($request);
         }
         abort(403, 'Unauthorized action.');
     }

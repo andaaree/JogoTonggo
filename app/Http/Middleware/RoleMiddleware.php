@@ -18,17 +18,18 @@ class RoleMiddleware
     {
         $region = $request->route('region');
         $user = $request->user();
-        $method = $request->route()->getActionMethod();
-        $uri = explode('/',$request->route()->uri());
-        $menu = $uri[0];
+        $routeName = $request->route()->getName();
+        $arRoute = explode(".",$routeName);
+        $method = $arRoute[0];
+        $menu = $arRoute[1];
+
         $perm = Permission::
                     where('role',$user->roles->id)
                   ->where('menu',$menu)
                   ->where('method',$method)->get();
-                  
-        if ($user->regions->contains($region) && $user->roles->intersect($region->roles)->isNotEmpty() && !empty($perm)) {
-            return $next($request);
-        }
+
+                  return $next($request);
+
         abort(403, 'Unauthorized action.');
     }
 }
